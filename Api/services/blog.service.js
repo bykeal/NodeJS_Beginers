@@ -18,9 +18,7 @@ class blogService{
     }
 
     async update(id){
-       let result = BlogModel.where("_id").equals(id);
-       console.log('..............................................');
-        console.log(result);
+       return BlogModel.findOneAndUpdate({_id: '61e5fe87aad9d11d2b500c3f'},{title:'nice try'});
     }
 }
 
