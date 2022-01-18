@@ -22,6 +22,11 @@ class blogService{
        return BlogModel.findByIdAndUpdate(data.id,{title: data.title},{new: true});
        
     }
+
+    async delete(id){
+       return BlogModel.findByIdAndDelete(id);
+       
+    }
 }
 
 module.exports = new blogService();
