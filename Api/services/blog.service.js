@@ -16,6 +16,11 @@ class blogService{
     async getById(id){
         return BlogModel.findById(id);
     }
+
+    async update(id){
+       let result = BlogModel.findById(id);
+        console.log(result);
+    }
 }
 
 module.exports = new blogService();
