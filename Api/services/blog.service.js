@@ -18,7 +18,8 @@ class blogService{
     }
 
     async update(id){
-       let result = BlogModel.findById(id);
+       let result = BlogModel.where("_id").equals(id);
+       console.log('..............................................');
         console.log(result);
     }
 }

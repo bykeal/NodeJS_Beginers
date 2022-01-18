@@ -7,6 +7,6 @@ router.get("/", blogController.getAll);
 router.get("/getbyid", blogController.getOne);
 router.post("/", blogController.create);
 router.delete("/:blogId", blogController.delete);
-router.patch("/:blogId", blogController.update);
+router.patch("/update", blogController.update);
 
 module.exports = router;
