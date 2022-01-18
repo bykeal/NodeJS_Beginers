@@ -18,7 +18,9 @@ class blogService{
     }
 
     async update(data){
-       return BlogModel.findOneAndUpdate({_id: data.id },{title: data.title});
+        console.log("data ........................", data);
+       return BlogModel.findByIdAndUpdate(data.id,{title: data.title},{new: true});
+       
     }
 }
 

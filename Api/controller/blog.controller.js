@@ -2,10 +2,15 @@ const blogSevice = require('../services/blog.service');
 class BlogController {
 
     async create(req,res){
-       const result = await blogSevice.createPost(req.body);
-       console.log(result);
-       res.status(201).send({success: "true", response : "blog post created" , 
-       data : result});
+        try {
+            const result = await blogSevice.createPost(req.body);
+            console.log(result);
+            res.status(201).send({success: "true", response : "blog post created" , 
+            data : result}); 
+        } catch (error) {
+            console.log(error);
+        }
+       
     }
     async getAll(req,res){
         const result = await blogSevice.getAll();
@@ -19,6 +24,8 @@ class BlogController {
         data: result});
     }
     async update(req,res){
+        console.log('.................')
+        console.log(req.body);
         const result = await blogSevice.update(req.body);
         res.status(201).send({success: "true", response : result})
     }
