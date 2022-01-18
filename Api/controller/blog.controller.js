@@ -19,7 +19,6 @@ class BlogController {
         data: result});
     }
     async update(req,res){
-       
         const result = await blogSevice.update(req.body);
         res.status(201).send({success: "true", response : result})
     }
