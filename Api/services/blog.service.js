@@ -17,8 +17,8 @@ class blogService{
         return BlogModel.findById(id);
     }
 
-    async update(id){
-       return BlogModel.findOneAndUpdate({_id: '61e5fe87aad9d11d2b500c3f'},{title:'nice try'});
+    async update(data){
+       return BlogModel.findOneAndUpdate({_id: data.id },{title: data.title});
     }
 }
 
