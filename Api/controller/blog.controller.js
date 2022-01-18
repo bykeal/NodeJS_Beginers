@@ -30,7 +30,8 @@ class BlogController {
         res.status(201).send({success: "true", response : result})
     }
     async delete(req,res){
-        res.status(201).send({success: "true", response : "blog post deleted succesfully."})
+        const result = await blogSevice.delete(req.query.id);
+        res.status(201).send({success: "true", response : "blog post deleted succesfully.",data: result})
     }
 }
 
