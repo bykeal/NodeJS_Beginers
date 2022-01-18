@@ -19,7 +19,8 @@ class BlogController {
         data: result});
     }
     async update(req,res){
-        const result = await blogSevice.update(req.query.id);
+       
+        const result = await blogSevice.update("61ddf155d9e4a790da35dc56");
         res.status(201).send({success: "true", response : result})
     }
     async delete(req,res){
