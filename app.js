@@ -8,11 +8,7 @@ const mongoose = require('mongoose');
 
 dotenv.config();
 
-mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.wnqd5.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`);
-
-// mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.wnqd5.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`).then((res)=>{
-//     console.log('connection succesfull');
-// });
+mongoose.connect(`mongodb+srv://chibuike:chibyke1935@cluster0.wnqd5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
 
 app.use(morgan("dev")); //middleware
 

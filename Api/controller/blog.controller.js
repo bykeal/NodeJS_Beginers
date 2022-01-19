@@ -8,7 +8,7 @@ class BlogController {
             res.status(201).send({success: "true", response : "blog post created" , 
             data : result}); 
         } catch (error) {
-            console.log(error);
+            next(error);
         }
        
     }

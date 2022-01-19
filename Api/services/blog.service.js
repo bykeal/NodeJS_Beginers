@@ -1,9 +1,11 @@
 const BlogModel = require('../model/blog.model');
+const CustomError = require('../utils/custom.error');
+
 class blogService{
    async createPost(data){
     //    console.log('this is the console data',data);
         const {title, description , author} = data;
-        if (title || description || author ) throw
+        if (title || description || author ) throw new CustomError('invalid');
         const blog = new BlogModel({
             title : data.title,
             description : data.description,
