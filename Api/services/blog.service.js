@@ -1,6 +1,4 @@
-const blogModel = require('../model/blog.model');
 const BlogModel = require('../model/blog.model');
-const { message } = require('../utils/custom.error');
 const customError = require("../utils/custom.error");
 
 class blogService{
@@ -8,15 +6,21 @@ class blogService{
     //    console.log('this is the console data',data);
         const {title, description , author} = data;
         // if (title || description || author ) throw new customError('invalid');
-       blogModel.find({title: data.title}).then(message => {
-                if(message.length > 0) throw new Error('invalid');
-            });
-        // const blog = new BlogModel({
-        //     title : data.title,
-        //     description : data.description,
-        //     author: data.author
-        // });
-        // return blog.save();
+        // const check = BlogModel.exists({title: data.title});
+        // check.then(message => {
+        //     if(message.length >= 0) {
+        //         const err = new Error('email already exists');
+        //         err.status = 422;
+        //         return reject(err);
+        //     }
+        // }
+        // )
+        const blog = new BlogModel({
+            title : data.title,
+            description : data.description,
+            author: data.author
+        });
+        return blog.save();
     }
 
     async getAll(){
