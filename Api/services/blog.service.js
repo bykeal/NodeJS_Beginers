@@ -1,4 +1,6 @@
+const blogModel = require('../model/blog.model');
 const BlogModel = require('../model/blog.model');
+const { message } = require('../utils/custom.error');
 const customError = require("../utils/custom.error");
 
 class blogService{
@@ -6,6 +8,10 @@ class blogService{
     //    console.log('this is the console data',data);
         const {title, description , author} = data;
         // if (title || description || author ) throw new customError('invalid');
+       blogModel.find({title: data.title})
+            .then((message) => {
+                if(message > 0) return "Blog with title already exist";
+            });
         const blog = new BlogModel({
             title : data.title,
             description : data.description,
