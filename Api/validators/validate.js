@@ -5,7 +5,7 @@ module.exports = (schema) => async (req,res,next)=>{
     if(errors && errors.length > 0){
         throw new customError(errors[0]);
     }
-    next()
+    next(errors)
 }
 
 

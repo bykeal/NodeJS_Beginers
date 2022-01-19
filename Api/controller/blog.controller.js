@@ -1,7 +1,7 @@
 const blogSevice = require('../services/blog.service');
 class BlogController {
 
-    async create(req,res){
+    async create(req,res,next){
         try {
             const result = await blogSevice.createPost(req.body);
             console.log(result);
@@ -9,6 +9,7 @@ class BlogController {
             data : result}); 
         } catch (error) {
             next(error);
+            console.log(error)
         }
        
     }
