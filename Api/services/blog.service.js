@@ -8,16 +8,15 @@ class blogService{
     //    console.log('this is the console data',data);
         const {title, description , author} = data;
         // if (title || description || author ) throw new customError('invalid');
-       blogModel.find({title: data.title})
-            .then((message) => {
-                if(message > 0) return "Blog with title already exist";
+       blogModel.find({title: data.title}).then(message => {
+                if(message.length > 0) throw new Error('invalid');
             });
-        const blog = new BlogModel({
-            title : data.title,
-            description : data.description,
-            author: data.author
-        });
-        return blog.save();
+        // const blog = new BlogModel({
+        //     title : data.title,
+        //     description : data.description,
+        //     author: data.author
+        // });
+        // return blog.save();
     }
 
     async getAll(){
