@@ -24,6 +24,45 @@ class userService {
         return user.save();
 
     }
+
+    async login(data){
+        
+        let option ="";
+        let retrievedpassword = "";
+        console.log(data);
+         
+        if (data.name == ""){
+
+            option = data.email;
+            let existinguser = await usermodel.find({email : option});
+            
+            if(existinguser.length > 0){
+                retrievedpassword = existinguser[0].password;
+            }else{
+                throw new CustomError("email does not exist!!!");
+            }
+
+        } else{
+
+            option = data.name;
+            let existinguser = await usermodel.find({name : option});
+
+            if(existinguser.length > 0){
+                retrievedpassword = existinguser[0].password;
+            }else{
+                throw new CustomError("name does not exist!!!");
+            }
+
+        }
+
+        if(data.password == retrievedpassword){
+            return "Welcome";
+        }else{
+            throw new CustomError("incorrect password or username");
+        }
+
+
+    }
 }
 
 module.exports = new userService();

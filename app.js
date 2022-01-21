@@ -6,11 +6,13 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-
+const CustomError = require("./Api/utils/custom.error");
 dotenv.config();
 
 mongoose.connect(`mongodb+srv://chibuike:chibyke1935@cluster0.wnqd5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
-    .catch(err => console.log(err));;
+    .catch(err => {
+        throw new CustomError("Connection failed");
+    });
 
 app.use(morgan("dev")); //middleware
 
