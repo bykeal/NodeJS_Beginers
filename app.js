@@ -1,5 +1,6 @@
 const express = require('express');
 const Blog = require('./Api/routes/blog.route');
+const User = require('./Api/routes/user.route');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -8,7 +9,8 @@ const mongoose = require('mongoose');
 
 dotenv.config();
 
-mongoose.connect(`mongodb+srv://chibuike:chibyke1935@cluster0.wnqd5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
+mongoose.connect(`mongodb+srv://chibuike:chibyke1935@cluster0.wnqd5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+    .catch(err => console.log(err));;
 
 app.use(morgan("dev")); //middleware
 
@@ -20,6 +22,7 @@ app.get("/", (req,res) => {
 });
 
 app.use("/blog", Blog);
+app.use("/user", User);
 
 app.use((req,res,next) => {
     const err = new Error("Not found");
