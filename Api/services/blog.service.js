@@ -1,20 +1,13 @@
 const BlogModel = require('../model/blog.model');
-const customError = require("../utils/custom.error");
+const CustomError = require("../utils/custom.error");
 
 class blogService{
    async createPost(data){
-    //    console.log('this is the console data',data);
         const {title, description , author} = data;
-        // if (title || description || author ) throw new customError('invalid');
-        // const check = BlogModel.exists({title: data.title});
-        // check.then(message => {
-        //     if(message.length >= 0) {
-        //         const err = new Error('email already exists');
-        //         err.status = 422;
-        //         return reject(err);
-        //     }
-        // }
-        // )
+        const existingpost = await BlogModel.findOne({ title });
+        if (existingpost) {
+            throw new CustomError("Post title already exist")
+        }
         const blog = new BlogModel({
             title : data.title,
             description : data.description,
