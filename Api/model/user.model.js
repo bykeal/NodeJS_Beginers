@@ -16,6 +16,9 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    hashpassword: {
+        type: String
+    },
     verified: {
         type: String,
         required: true

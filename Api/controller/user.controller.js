@@ -1,5 +1,6 @@
 const userService = require('../services/user.service');
 const CustomError = require("../utils/custom.error");
+const { hashPassword, dehashPassword } = require("../utils/procesor");
 
 class userController {
 
@@ -16,6 +17,8 @@ class userController {
         res.status(201).send({success: "true", response : "Welcome" , 
         data : result}); 
     }
+
+  
 }
 
 module.exports = new userController();

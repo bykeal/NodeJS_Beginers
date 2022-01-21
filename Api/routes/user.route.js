@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post("/", userController.create)
 router.post("/login", userController.login)
+// router.post("/check", userController.check)
 
 module.exports = router;

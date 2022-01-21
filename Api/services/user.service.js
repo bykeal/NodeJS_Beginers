@@ -1,5 +1,6 @@
 const usermodel = require("../model/user.model");
 const CustomError = require("../utils/custom.error");
+const { hashPassword, dehashPassword } = require("../utils/procesor");
 
 class userService {
     async register(data){
@@ -19,6 +20,7 @@ class userService {
             name: data.name,
             email: data.email,
             password: data.password,
+            hashpassword: await hashPassword(data.password),
             verified: 0
         });
         return user.save();
@@ -37,7 +39,7 @@ class userService {
             let existinguser = await usermodel.find({email : option});
             
             if(existinguser.length > 0){
-                retrievedpassword = existinguser[0].password;
+                retrievedpassword = existinguser[0].hashpassword;
             }else{
                 throw new CustomError("email does not exist!!!");
             }
@@ -48,14 +50,14 @@ class userService {
             let existinguser = await usermodel.find({name : option});
 
             if(existinguser.length > 0){
-                retrievedpassword = existinguser[0].password;
+                retrievedpassword = existinguser[0].hashpassword;
             }else{
                 throw new CustomError("name does not exist!!!");
             }
 
         }
 
-        if(data.password == retrievedpassword){
+        if(dehashPassword(data.password,retrievedpassword)){
             return "Welcome";
         }else{
             throw new CustomError("incorrect password or username");
