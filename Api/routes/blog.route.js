@@ -3,7 +3,7 @@ const blogController = require('../controller/blog.controller');
 const {blogSchema} = require("../validators/blog.schema");
 const validators = require("../validators/validate");
 
- require('express-async-errors');
+require('express-async-errors');
 
 const router = express.Router();
 
