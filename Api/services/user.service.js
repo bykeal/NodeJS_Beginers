@@ -1,6 +1,6 @@
 const usermodel = require("../model/user.model");
 const CustomError = require("../utils/custom.error");
-const { hashPassword, dehashPassword } = require("../utils/procesor");
+const { hashPassword, dehashPassword , generateToken, verifyToken } = require("../utils/procesor");
 
 class userService {
     async register(data){
@@ -31,12 +31,13 @@ class userService {
         
         let option ="";
         let retrievedpassword = "";
+        let existinguser;
         console.log(data);
          
         if (data.name == ""){
 
             option = data.email;
-            let existinguser = await usermodel.find({email : option});
+            existinguser = await usermodel.find({email : option});
             
             if(existinguser.length > 0){
                 retrievedpassword = existinguser[0].hashpassword;
@@ -47,7 +48,7 @@ class userService {
         } else{
 
             option = data.name;
-            let existinguser = await usermodel.find({name : option});
+            existinguser = await usermodel.find({name : option});
 
             if(existinguser.length > 0){
                 retrievedpassword = existinguser[0].hashpassword;
@@ -58,7 +59,7 @@ class userService {
         }
 
         if(dehashPassword(data.password,retrievedpassword)){
-            return "Welcome";
+            return existinguser;
         }else{
             throw new CustomError("incorrect password or username");
         }
