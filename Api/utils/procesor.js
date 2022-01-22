@@ -8,9 +8,7 @@ const hashPassword = async (password) => {
 }
 
 const dehashPassword = async (password, hashedpassword) => {
-    const compare = await bcrypt.compare(password, hashedpassword)
-    console.log(compare)
-
+    return bcrypt.compare(password, hashedpassword);
 }
 
 const generateToken = (user, time = "24h") => {

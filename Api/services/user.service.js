@@ -58,13 +58,13 @@ class userService {
 
         }
 
-        if(dehashPassword(data.password,retrievedpassword)){
-            return existinguser;
-        }else{
-            throw new CustomError("incorrect password or username");
-        }
+        const pass = await dehashPassword(data.password,retrievedpassword);
 
+        // console.log(pass);
+        if(!pass) throw new CustomError("incorrect password or username");
 
+        return existinguser;
+        
     }
 }
 
