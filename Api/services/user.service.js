@@ -66,6 +66,14 @@ class userService {
         return existinguser;
         
     }
+
+    async getById(id){
+        return usermodel.findById(id);
+    }
+
+    async findByEmail(email) {
+        return usermodel.find({ email });
+    }
 }
 
 module.exports = new userService();
