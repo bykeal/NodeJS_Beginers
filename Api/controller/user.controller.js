@@ -6,14 +6,19 @@ class userController {
 
     async create(req,res,next){
             let result = await userService.register(req.body);
-            const token = generateToken(result);
+            let user = {
+                id: result._id,
+                email: result.email
+            }
+            const token = generateToken(user);
             res.status(201).send({success: "true", response : "Welcome" , 
             data : [result, token]}); 
     }
 
     async login(req,res,next){
         let result = await userService.login(req.body);
-        const token = generateToken(result);
+        const { _id, email } = result;
+        const token = generateToken({_id,email});
         res.status(201).send({success: "true", response : "Welcome" , 
         data : [result, token]}); 
     }

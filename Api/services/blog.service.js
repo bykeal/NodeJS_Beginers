@@ -33,6 +33,10 @@ class blogService{
        return BlogModel.findByIdAndDelete(id);
        
     }
+    async deleteAll(){
+        return BlogModel.deleteMany({});
+        
+     }
 }
 
 module.exports = new blogService();

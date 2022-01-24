@@ -2,8 +2,11 @@ const blogSevice = require('../services/blog.service');
 class BlogController {
 
     async create(req,res,next){
+        const {title, description} = req.body;
+        const user = res.locals.author;
         try {
-            const result = await blogSevice.createPost(req.body);
+            console.log(req.body);
+            const result = await blogSevice.createPost({title:title, author: user, description: description});
             console.log(result);
             res.status(201).send({success: "true", response : "blog post created" , 
             data : result}); 
@@ -30,9 +33,12 @@ class BlogController {
         const result = await blogSevice.update(req.body);
         res.status(201).send({success: "true", response : result})
     }
-    async delete(req,res){
+    async deleteById(req,res){
         const result = await blogSevice.delete(req.query.id);
         res.status(201).send({success: "true", response : "blog post deleted succesfully.",data: result})
+    }
+    async delete(req,res){
+        const result = await blogSevice.deleteAll();
     }
 }
 

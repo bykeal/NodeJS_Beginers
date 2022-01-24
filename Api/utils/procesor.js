@@ -12,12 +12,14 @@ const dehashPassword = async (password, hashedpassword) => {
 }
 
 const generateToken = (user, time = "24h") => {
-    return jwt.sign({ id: user._id, email: user.email },
+    console.log(user)
+    return jwt.sign({ id: user.id, email: user.email },
         "chidimma", { expiresIn: time })
 }
 
-const verifyToken = (token) => {
-    return jwt.verify(token, "chidimma")
+const verifyToken = async (token) => {
+   const result = await jwt.verify(token, "chidimma");
+   return result;
 }
 
 module.exports = {

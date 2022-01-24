@@ -1,11 +1,14 @@
 const customError = require("../utils/custom.error");
 
 module.exports = (schema) => async (req,res,next)=>{
-    const errors = validate(req.body || {}, schema);
+    const {title, description} = req.body;
+    const user = res.locals.author;
+    console.log("user...............",user);
+    const errors = validate({title:title, author: user, description: description} || {}, schema);
     if(errors && errors.length > 0){
-        throw new customError('fuck');
+        throw new customError(errors);
     }
-    next(errors)
+    next()
 }
 
 
