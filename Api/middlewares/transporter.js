@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 //     html: '<h1>Welcome</h1><p>That was easy!</p>'
 //   }
 
-const sendone = (mailOptions) => {
+const sendone = async (mailOptions) => {
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);
