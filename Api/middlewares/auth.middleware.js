@@ -16,10 +16,12 @@ const authenticate = async (req, res, next) => {
         // console.log('user = ',user);
         if (!user) throw new CustomError("User does not exist", 401)
         res.locals.author = decodedUser.email;
+        res.locals.pin = decodedUser.id;
         next()
     }
     catch (err) {
-        next(err)
+        const erred = new CustomError(err, 403);
+        next(erred)
     }
 } 
 

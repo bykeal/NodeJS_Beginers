@@ -3,11 +3,11 @@ const CustomError = require("../utils/custom.error");
 
 class blogService{
    async createPost(data){
-        const {title, description , author} = data;
-        const existingpost = await BlogModel.findOne({ title });
-        if (existingpost) {
-            throw new CustomError("Post title already exist")
-        }
+        // const {title, description , author} = data;
+        // const existingpost = await BlogModel.findOne({ title });
+        // if (existingpost) {
+        //     throw new CustomError("Post title already exist")
+        // }
         const blog = new BlogModel({
             title : data.title,
             description : data.description,
@@ -24,9 +24,8 @@ class blogService{
     }
 
     async update(data){
-        console.log("data ........................", data);
-       return BlogModel.findByIdAndUpdate(data.id,{title: data.title},{new: true});
-       
+       console.log("data ........................", data);
+       return BlogModel.findByIdAndUpdate(data.id,{title: data.title, author: data.author},{new: true});
     }
 
     async delete(id){

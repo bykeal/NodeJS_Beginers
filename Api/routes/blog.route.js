@@ -13,6 +13,6 @@ router.get("/getbyid", blogController.getOne);
 router.post("/", authenticate, validators(blogSchema) , blogController.create);
 router.delete("/delete", blogController.deleteById);
 router.delete("/deleteAll", blogController.delete);
-router.patch("/update", blogController.update);
+router.patch("/update", authenticate, blogController.update);
 
 module.exports = router;

@@ -3,7 +3,7 @@ class BlogController {
 
     async create(req,res,next){
         const {title, description} = req.body;
-        const user = res.locals.author;
+        const user = res.locals.pin;
         try {
             console.log(req.body);
             const result = await blogSevice.createPost({title:title, author: user, description: description});
@@ -28,10 +28,9 @@ class BlogController {
         data: result});
     }
     async update(req,res){
-        console.log('.................')
-        console.log(req.body);
-        const result = await blogSevice.update(req.body);
-        res.status(201).send({success: "true", response : result})
+        const data = {author: res.locals.pin, ...req.body};
+        const result = await blogSevice.update(data);
+        res.status(201).send({success: "blog post updated ", response : result})
     }
     async deleteById(req,res){
         const result = await blogSevice.delete(req.query.id);
