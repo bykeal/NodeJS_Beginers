@@ -1,6 +1,7 @@
 const userService = require('../services/user.service');
 const CustomError = require("../utils/custom.error");
 const { hashPassword, dehashPassword , generateToken, verifyToken } = require("../utils/procesor");
+const { sendone } = require("../middlewares/transporter")
 
 class userController {
 
@@ -21,6 +22,18 @@ class userController {
         const token = generateToken({_id,email});
         res.status(201).send({success: "true", response : "Welcome" , 
         data : [result, token]}); 
+    }
+
+    async email(req,res,next){
+        var mailOptions = {
+            from: 'okonkwochibuike80@gmail.com',
+            to: 'okonkwochibuike81@gmail.com',
+            subject: 'Sending Email using Node.js',
+            html: '<h1>Welcome</h1><p>That was easy!</p>'
+        }
+        let result = await sendone(mailOptions);
+        res.status(201).send({success: "true", response : "Welcome" , 
+        data : result}); 
     }
 
   
