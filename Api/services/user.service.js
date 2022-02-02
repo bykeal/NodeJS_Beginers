@@ -40,6 +40,7 @@ class userService {
             existinguser = await usermodel.find({email : option});
             
             if(existinguser.length > 0){
+                // console.log(existinguser[0].verified);
                 retrievedpassword = existinguser[0].hashpassword;
             }else{
                 throw new CustomError("email does not exist!!!");

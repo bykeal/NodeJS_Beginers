@@ -18,7 +18,9 @@ class userController {
 
     async login(req,res,next){
         let result = await userService.login(req.body);
-        const { _id, email } = result;
+        // console.log("problem --------------",result);
+        const { _id, email } = result[0];
+        // console.log("problem --------------", _id , " -----", email );
         const token = generateToken({_id,email});
         res.status(201).send({success: "true", response : "Welcome" , 
         data : [result, token]}); 
