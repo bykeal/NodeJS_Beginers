@@ -25,13 +25,18 @@ class userController {
     }
 
     async email(req,res,next){
+        let result = "";
         var mailOptions = {
-            from: 'okonkwochibuike80@gmail.com',
-            to: 'okonkwochibuike81@gmail.com',
+            from: 'okonkwochibuike81@gmail.com',
+            to: 'okonkwochibuike80@gmail.com',
             subject: 'Sending Email using Node.js',
             html: '<h1>Welcome</h1><p>That was easy!</p>'
         }
-        let result = await sendone(mailOptions);
+        await sendone(mailOptions).then(res => {
+            result = res;
+        }).catch(err =>{
+            result = err;
+        });
         res.status(201).send({success: "true", response : "Welcome" , 
         data : result}); 
     }

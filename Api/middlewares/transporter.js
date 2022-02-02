@@ -1,13 +1,17 @@
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'okonkwochibuike80@gmail.com',
-      pass: 'chibisco'
-    }
-  });
-  
+var transporter = nodemailer.createTransport({
+    host: process.env.MAIL_SERVICE,
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: process.env.MAIL_USER, // generated gmail user
+                pass: process.env.MAIL_PASS // generated gmail account password
+            }
+
+});
 //   var mailOptions = {
 //     from: 'youremail@gmail.com',
 //     to: 'myfriend@yahoo.com',
@@ -15,7 +19,7 @@ const transporter = nodemailer.createTransport({
 //     text: 'That was easy!'
 //   };
 
-// ...................................
+// ..................................
 
 // var mailOptions = {
 //     from: 'youremail@gmail.com',
@@ -25,13 +29,8 @@ const transporter = nodemailer.createTransport({
 //   }
 
 const sendone = async (mailOptions) => {
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
+   const resp = await transporter.sendMail(mailOptions);
+   return resp;
 }
 
   
