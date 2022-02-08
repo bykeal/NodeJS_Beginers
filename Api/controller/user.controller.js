@@ -1,6 +1,6 @@
 const userService = require('../services/user.service');
 const CustomError = require("../utils/custom.error");
-const { hashPassword, dehashPassword , generateToken, verifyToken } = require("../utils/procesor");
+const { hashPassword, dehashPassword , generateToken, verifyToken, sendverification } = require("../utils/procesor");
 const { sendone } = require("../middlewares/transporter")
 
 class userController {
@@ -11,6 +11,8 @@ class userController {
                 id: result._id,
                 email: result.email
             }
+            const sendverifications = sendverification(user);
+            console.log(sendverifications);
             const token = generateToken(user);
             res.status(201).send({success: "true", response : "Welcome" , 
             data : [result, token]}); 
@@ -37,12 +39,21 @@ class userController {
         await sendone(mailOptions).then(res => {
             result = res;
         }).catch(err =>{
-            result = err;
+            next(err);
         });
         res.status(201).send({success: "true", response : "Welcome" , 
         data : result}); 
     }
+    
+    async verify(req,res,next){
+        const decodedUser = await verifyToken(req.params.token)
+        let result = await userService.updateVerification(decodedUser);
+        console.log(decodedUser)
+        console.log("result from service",result)
 
+        res.status(201).send({success: "true", response : "updated" , 
+        data : result}); 
+    }
   
 }
 

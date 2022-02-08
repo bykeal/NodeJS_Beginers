@@ -23,6 +23,7 @@ class userService {
             hashpassword: await hashPassword(data.password),
             verified: 0
         });
+        // const vtoken = generateToken(user);
         return user.save();
 
     }
@@ -75,6 +76,14 @@ class userService {
     async findByEmail(email) {
         return usermodel.find({ email });
     }
+    async updateVerification(data){
+        console.log("data ........................", data);
+        const existing = await usermodel.find({email: data.email});
+        console.log("data2 ........................", existing);
+        if(!existing.length > 0) throw new CustomError("user does not exist exist!!!");
+        return usermodel.findByIdAndUpdate(data.id,{verified: 1},{new: true});
+        // BlogModel.findOneAndUpdate({email:data.id},{title: data.title, author: data.author},{new: true});
+     }
 }
 
 module.exports = new userService();
