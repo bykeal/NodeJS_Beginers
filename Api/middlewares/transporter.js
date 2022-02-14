@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const hbs = require('nodemailer-express-handlebars');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -12,11 +13,17 @@ var transporter = nodemailer.createTransport({
             }
 
 });
+
+transporter.use('compile', hbs({ 
+    viewEngine: 'express-handlebars',
+    viewPath: '../../views/'
+}))
 //   var mailOptions = {
 //     from: 'youremail@gmail.com',
 //     to: 'myfriend@yahoo.com',
 //     subject: 'Sending Email using Node.js',
-//     text: 'That was easy!'
+//     text: 'That was easy!',
+        // template: 'index'
 //   };
 
 // ..................................
